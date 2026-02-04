@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Code 学习中心</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', sans-serif;
+            background: #f5f5f7;
+            min-height: 100vh;
+            padding: 40px 20px;
+            color: #1d1d1f;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 980px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        h1 {
+            font-size: 56px;
+            font-weight: 600;
+            letter-spacing: -0.005em;
+            margin-bottom: 12px;
+            color: #1d1d1f;
+        }
+
+        .subtitle {
+            font-size: 21px;
+            font-weight: 400;
+            color: #6e6e73;
+            margin-bottom: 40px;
+        }
+
+        .progress-container {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 40px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .progress-label {
+            font-size: 14px;
+            color: #6e6e73;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .progress-bar {
+            background: #e8e8ed;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: #0071e3;
+            height: 100%;
+            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .content-card {
+            background: white;
+            border-radius: 18px;
+            padding: 48px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+        }
+
+        .level-title {
+            font-size: 40px;
+            font-weight: 600;
+            letter-spacing: -0.003em;
+            margin-bottom: 24px;
+            color: #1d1d1f;
+        }
+
+        .level-content {
+            font-size: 17px;
+            line-height: 1.7;
+            color: #1d1d1f;
+        }
+
+        .level-content p {
+            margin-bottom: 16px;
+        }
+
+        .level-content ul {
+            margin: 20px 0 20px 24px;
+        }
+
+        .level-content li {
+            margin-bottom: 12px;
+            color: #1d1d1f;
+        }
+
+        .code-block {
+            background: #1d1d1f;
+            color: #f5f5f7;
+            padding: 24px;
+            border-radius: 12px;
+            font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.8;
+            margin: 24px 0;
+            overflow-x: auto;
+        }
+
+        .command {
+            color: #0071e3;
+            font-weight: 500;
+        }
+
+        .info-box {
+            background: #f5f5f7;
+            border-radius: 12px;
+            padding: 24px;
+            margin: 24px 0;
+            border-left: 3px solid #0071e3;
+        }
+
+        .info-box strong {
+            display: block;
+            margin-bottom: 12px;
+            color: #1d1d1f;
+            font-size: 15px;
+        }
+
+        .success-box {
+            background: #f5f5f7;
+            border-radius: 12px;
+            padding: 24px;
+            margin: 24px 0;
+            border-left: 3px solid #34c759;
+        }
+
+        .quiz-options {
+            display: grid;
+            gap: 12px;
+            margin: 32px 0;
+        }
+
+        .quiz-option {
+            background: #f5f5f7;
+            border: 2px solid transparent;
+            padding: 20px 24px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 17px;
+            text-align: left;
+        }
+
+        .quiz-option:hover {
+            background: #e8e8ed;
+            border-color: #0071e3;
+        }
+
+        .quiz-option.correct {
+            background: #34c759;
+            color: white;
+            border-color: #34c759;
+        }
+
+        .quiz-option.wrong {
+            background: #ff3b30;
+            color: white;
+            border-color: #ff3b30;
+        }
+
+        .quiz-option.disabled {
+            pointer-events: none;
+        }
+
+        .score-display {
+            text-align: center;
+            font-size: 19px;
+            color: #6e6e73;
+            margin-bottom: 20px;
+        }
+
+        .score-number {
+            color: #0071e3;
+            font-weight: 600;
+            font-size: 24px;
+        }
+
+        .completion-message {
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .completion-title {
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #1d1d1f;
+        }
+
+        .completion-text {
+            font-size: 19px;
+            color: #6e6e73;
+            margin-bottom: 12px;
+        }
+
+        code {
+            background: #f5f5f7;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+            font-size: 0.95em;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 32px;
+        }
+
+        .btn {
+            background: #0071e3;
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 980px;
+            font-size: 17px;
+            font-weight: 400;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            min-width: 140px;
+        }
+
+        .btn:hover {
+            background: #0077ed;
+            transform: scale(1.02);
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn.secondary {
+            background: #6e6e73;
+        }
+
+        .btn.secondary:hover {
+            background: #86868b;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 40px;
+            }
+
+            .level-title {
+                font-size: 32px;
+            }
+
+            .content-card {
+                padding: 32px 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Claude Code</h1>
+            <p class="subtitle">通过互动式学习掌握 AI 编程助手</p>
+        </header>
+
+        <div class="progress-container">
+            <div class="progress-label" id="progressLabel">第 0 题，共 15 题</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+
+        <div class="score-display">
+            <span>答对：</span><span class="score-number" id="scoreDisplay">0</span> 题
+        </div>
+
+        <div id="gameContent"></div>
+
+        <div class="btn-container" id="btnContainer">
+            <button class="btn" id="actionBtn">开始学习</button>
+        </div>
+    </div>
+
+    <script>
+        let currentLevel = 0;
+        let score = 0;
+        const totalLevels = 15;
+
+        const levels = [
+            {
+                title: "第 1 题：启动 Claude Code",
+                question: "如何在命令行中启动 Claude Code？",
+                options: [
+                    "在终端输入 claude",
+                    "在终端输入 cc",
+                    "在终端输入 claude-code",
+                    "双击桌面图标"
+                ],
+                correctAnswer: 0,
+                explanation: "在终端中输入 claude 即可启动 Claude Code。"
+            },
+            {
+                title: "第 2 题：查看帮助",
+                question: "如果你想查看 Claude Code 的所有可用命令，应该使用哪个命令？",
+                options: [
+                    "/help",
+                    "/commands",
+                    "/list",
+                    "help"
+                ],
+                correctAnswer: 0,
+                explanation: "/help 命令会显示所有可用的特殊命令和使用说明。"
+            },
+            {
+                title: "第 3 题：清空对话",
+                question: "当你想开始一个全新的对话，清空之前的历史记录时，应该使用什么命令？",
+                options: [
+                    "/clear",
+                    "/reset",
+                    "/new",
+                    "/restart"
+                ],
+                correctAnswer: 0,
+                explanation: "/clear 命令可以清空当前的对话历史，开始新的对话。"
+            },
+            {
+                title: "第 4 题：读取文件",
+                question: "你想让 Claude 帮你查看 app.js 文件的内容，最好的方式是？",
+                options: [
+                    "直接说：读取 app.js 文件",
+                    "输入命令：cat app.js",
+                    "输入命令：open app.js",
+                    "输入命令：read app.js"
+                ],
+                correctAnswer: 0,
+                explanation: "Claude Code 支持自然语言交互，直接用中文描述你的需求即可。"
+            },
+            {
+                title: "第 5 题：创建新文件",
+                question: "你想创建一个名为 utils.js 的新文件，应该怎么说？",
+                options: [
+                    "创建一个新文件 utils.js",
+                    "touch utils.js",
+                    "new file utils.js",
+                    "make utils.js"
+                ],
+                correctAnswer: 0,
+                explanation: "用自然语言描述你的需求，Claude 会帮你创建文件。"
+            },
+            {
+                title: "第 6 题：修改代码",
+                question: "你发现 index.html 的第 20 行有个拼写错误，想让 Claude 帮你修改，应该怎么说？",
+                options: [
+                    "修改 index.html 第 20 行的拼写错误",
+                    "edit index.html line 20",
+                    "fix index.html:20",
+                    "change line 20 in index.html"
+                ],
+                correctAnswer: 0,
+                explanation: "清楚地描述文件位置和要修改的内容，Claude 会帮你完成。"
+            },
+            {
+                title: "第 7 题：搜索代码",
+                question: "你想在整个项目中查找所有使用了 fetch 函数的地方，应该怎么说？",
+                options: [
+                    "在项目中搜索 fetch",
+                    "grep fetch",
+                    "find fetch",
+                    "search fetch"
+                ],
+                correctAnswer: 0,
+                explanation: "用自然语言描述搜索需求，Claude 会帮你在项目中查找。"
+            },
+            {
+                title: "第 8 题：查看项目结构",
+                question: "你刚接手一个新项目，想了解项目的文件结构，应该怎么问？",
+                options: [
+                    "显示项目结构",
+                    "ls -la",
+                    "tree",
+                    "show files"
+                ],
+                correctAnswer: 0,
+                explanation: "直接询问项目结构，Claude 会帮你展示文件组织方式。"
+            },
+            {
+                title: "第 9 题：创建网页",
+                question: "你想创建一个简单的个人介绍网页，包含标题、段落和图片，应该怎么描述？",
+                options: [
+                    "创建一个个人介绍网页，包含标题、段落和图片",
+                    "make html page",
+                    "new website",
+                    "create index.html"
+                ],
+                correctAnswer: 0,
+                explanation: "详细描述你想要的功能，Claude 会创建完整的 HTML 文件。"
+            },
+            {
+                title: "第 10 题：调试代码",
+                question: "你的 JavaScript 代码报错了，想让 Claude 帮你找出问题，应该怎么说？",
+                options: [
+                    "帮我看看这段代码哪里有问题",
+                    "debug",
+                    "fix error",
+                    "check code"
+                ],
+                correctAnswer: 0,
+                explanation: "描述你遇到的问题，Claude 会分析代码并找出错误。"
+            },
+            {
+                title: "第 11 题：查看历史命令",
+                question: "在命令行中，如何快速查看并重新执行之前输入过的命令？",
+                options: [
+                    "按向上箭头键",
+                    "输入 history",
+                    "按 Ctrl+H",
+                    "输入 /history"
+                ],
+                correctAnswer: 0,
+                explanation: "按向上箭头键可以浏览之前输入的命令历史。"
+            },
+            {
+                title: "第 12 题：Git 提交",
+                question: "你完成了代码修改，想创建一个 git 提交，应该使用什么命令？",
+                options: [
+                    "/commit",
+                    "git commit",
+                    "/git",
+                    "/save"
+                ],
+                correctAnswer: 0,
+                explanation: "/commit 命令会帮你创建 git 提交，Claude 会自动生成提交信息。"
+            },
+            {
+                title: "第 13 题：添加功能",
+                question: "你想给网页添加一个点击按钮显示当前时间的功能，最好的描述方式是？",
+                options: [
+                    "添加一个按钮，点击后显示当前时间",
+                    "add button",
+                    "make time button",
+                    "create click function"
+                ],
+                correctAnswer: 0,
+                explanation: "清楚描述功能需求，Claude 会实现完整的交互逻辑。"
+            },
+            {
+                title: "第 14 题：代码解释",
+                question: "你看到一段复杂的代码不太理解，想让 Claude 解释，应该怎么说？",
+                options: [
+                    "解释一下这段代码的作用",
+                    "explain code",
+                    "what is this",
+                    "help"
+                ],
+                correctAnswer: 0,
+                explanation: "直接请求解释，Claude 会详细说明代码的功能和逻辑。"
+            },
+            {
+                title: "第 15 题：最佳实践",
+                question: "使用 Claude Code 时，哪种方式最有效？",
+                options: [
+                    "用清晰的自然语言描述需求，提供足够的上下文",
+                    "只用简短的命令词",
+                    "用英文命令",
+                    "用专业术语"
+                ],
+                correctAnswer: 0,
+                explanation: "清晰、详细的自然语言描述能让 Claude 更好地理解你的需求。"
+            }
+        ];
+
+        function updateProgress() {
+            const progress = (currentLevel / totalLevels) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('progressLabel').textContent = `第 ${currentLevel} 题，共 ${totalLevels} 题`;
+        }
+
+        function updateScore() {
+            document.getElementById('scoreDisplay').textContent = score;
+        }
+
+        function renderLevel() {
+            const gameContent = document.getElementById('gameContent');
+            const level = levels[currentLevel];
+            const btnContainer = document.getElementById('btnContainer');
+
+            if (currentLevel >= totalLevels) {
+                showCompletion();
+                return;
+            }
+
+            let html = `
+                <div class="content-card">
+                    <div class="level-title">${level.title}</div>
+                    <div class="level-content">
+                        <p><strong>${level.question}</strong></p>
+                        <div class="quiz-options" id="quizOptions">
+            `;
+
+            level.options.forEach((option, index) => {
+                html += `<div class="quiz-option" onclick="checkAnswer(${index})">${option}</div>`;
+            });
+
+            html += `
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            gameContent.innerHTML = html;
+            btnContainer.style.display = 'none';
+            updateProgress();
+        }
+
+        function checkAnswer(selectedIndex) {
+            const level = levels[currentLevel];
+            const options = document.querySelectorAll('.quiz-option');
+            const btnContainer = document.getElementById('btnContainer');
+            const actionBtn = document.getElementById('actionBtn');
+
+            options.forEach((option, index) => {
+                option.classList.add('disabled');
+                if (index === level.correctAnswer) {
+                    option.classList.add('correct');
+                } else if (index === selectedIndex) {
+                    option.classList.add('wrong');
+                }
+            });
+
+            if (selectedIndex === level.correctAnswer) {
+                score++;
+                updateScore();
+            }
+
+            // 显示解释
+            const explanation = document.createElement('div');
+            explanation.className = 'info-box';
+            explanation.style.marginTop = '24px';
+            explanation.innerHTML = `<strong>解释</strong>${level.explanation}`;
+            document.querySelector('.content-card').appendChild(explanation);
+
+            // 显示下一题按钮
+            btnContainer.style.display = 'flex';
+            actionBtn.textContent = currentLevel < totalLevels - 1 ? '下一题' : '查看结果';
+            actionBtn.onclick = nextLevel;
+        }
+
+        function nextLevel() {
+            currentLevel++;
+            renderLevel();
+        }
+
+        function showCompletion() {
+            const gameContent = document.getElementById('gameContent');
+            const percentage = Math.round((score / totalLevels) * 100);
+            const btnContainer = document.getElementById('btnContainer');
+            const actionBtn = document.getElementById('actionBtn');
+
+            let message = '';
+            let messageColor = '';
+            if (percentage === 100) {
+                message = '完美！你已经完全掌握了 Claude Code';
+                messageColor = '#34c759';
+            } else if (percentage >= 80) {
+                message = '优秀！你对 Claude Code 有很好的理解';
+                messageColor = '#0071e3';
+            } else if (percentage >= 60) {
+                message = '不错！继续学习会更好';
+                messageColor = '#ff9500';
+            } else {
+                message = '建议再学习一遍，加深理解';
+                messageColor = '#ff3b30';
+            }
+
+            const html = `
+                <div class="content-card">
+                    <div class="completion-message">
+                        <div class="completion-title">学习完成</div>
+                        <p class="completion-text">你答对了 <span class="score-number">${score}</span> / ${totalLevels} 题</p>
+                        <p class="completion-text">正确率：<span class="score-number">${percentage}%</span></p>
+                        <p style="font-size: 21px; color: ${messageColor}; margin-top: 24px; font-weight: 500;">${message}</p>
+                    </div>
+                    <div class="success-box">
+                        <strong>下一步</strong>
+                        现在打开终端，输入 <code>claude</code> 开始使用 Claude Code<br>
+                        尝试创建你的第一个项目，比如：<br>
+                        • 个人网站<br>
+                        • 待办事项应用<br>
+                        • 简单游戏<br>
+                        • 计算器工具
+                    </div>
+                </div>
+            `;
+
+            gameContent.innerHTML = html;
+            btnContainer.style.display = 'flex';
+            btnContainer.innerHTML = `
+                <button class="btn secondary" onclick="restart()">重新开始</button>
+            `;
+        }
+
+        function restart() {
+            currentLevel = 0;
+            score = 0;
+            updateScore();
+            renderLevel();
+        }
+
+        function startGame() {
+            renderLevel();
+        }
+
+        // 初始化
+        document.getElementById('actionBtn').onclick = startGame;
+    </script>
+</body>
+</html>
