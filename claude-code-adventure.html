@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Claude Code 学习中心</title>
+    <title>AI 黑客：代码世界冒险</title>
     <style>
         * {
             margin: 0;
@@ -13,626 +13,817 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', sans-serif;
-            background: #f5f5f7;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1a2e 50%, #16213e 100%);
             min-height: 100vh;
-            padding: 40px 20px;
-            color: #1d1d1f;
-            line-height: 1.6;
+            padding: 20px;
+            color: #fff;
+            overflow-x: hidden;
         }
 
         .container {
-            max-width: 980px;
+            max-width: 1000px;
             margin: 0 auto;
+        }
+
+        .intro-screen {
+            text-align: center;
+            padding: 60px 20px;
+            animation: fadeIn 1s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .intro-title {
+            font-size: 56px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #00f2fe 0%, #4facfe 50%, #667eea 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.3); }
+        }
+
+        .intro-subtitle {
+            font-size: 24px;
+            color: #4facfe;
+            margin-bottom: 40px;
+            font-weight: 500;
+        }
+
+        .story-box {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 30px 0;
+            border: 1px solid rgba(79, 172, 254, 0.3);
+            text-align: left;
+            line-height: 2;
+            font-size: 18px;
+        }
+
+        .story-box p {
+            margin-bottom: 20px;
+        }
+
+        .highlight {
+            color: #4facfe;
+            font-weight: 600;
         }
 
         header {
             text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: 30px;
         }
 
         h1 {
-            font-size: 56px;
-            font-weight: 600;
-            letter-spacing: -0.005em;
-            margin-bottom: 12px;
-            color: #1d1d1f;
+            font-size: 42px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
         }
 
         .subtitle {
-            font-size: 21px;
-            font-weight: 400;
-            color: #6e6e73;
-            margin-bottom: 40px;
+            font-size: 16px;
+            color: #a0a0a0;
         }
 
-        .progress-container {
-            background: white;
+        .game-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
             border-radius: 12px;
-            padding: 24px;
-            margin-bottom: 40px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            padding: 20px;
+            border: 1px solid rgba(79, 172, 254, 0.2);
         }
 
-        .progress-label {
-            font-size: 14px;
-            color: #6e6e73;
-            margin-bottom: 12px;
-            font-weight: 500;
+        .stat-label {
+            font-size: 13px;
+            color: #a0a0a0;
+            margin-bottom: 8px;
         }
 
-        .progress-bar {
-            background: #e8e8ed;
-            height: 8px;
-            border-radius: 4px;
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #4facfe;
+        }
+
+        .hp-bar {
+            background: rgba(255, 255, 255, 0.1);
+            height: 10px;
+            border-radius: 5px;
             overflow: hidden;
+            margin-top: 8px;
         }
 
-        .progress-fill {
-            background: #0071e3;
+        .hp-fill {
+            background: linear-gradient(90deg, #ff6b6b, #ee5a6f);
             height: 100%;
-            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: width 0.5s ease;
         }
 
-        .content-card {
-            background: white;
-            border-radius: 18px;
-            padding: 48px;
-            margin-bottom: 24px;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+        .battle-area {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(79, 172, 254, 0.2);
+            min-height: 450px;
         }
 
-        .level-title {
-            font-size: 40px;
+        .monster {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .monster-avatar {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 90px;
+            animation: monsterFloat 3s ease-in-out infinite;
+            box-shadow: 0 15px 50px rgba(102, 126, 234, 0.5);
+            position: relative;
+        }
+
+        .monster-avatar.damaged {
+            animation: monsterShake 0.5s, monsterFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes monsterFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        @keyframes monsterShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-15px); }
+            75% { transform: translateX(15px); }
+        }
+
+        .monster-name {
+            font-size: 28px;
             font-weight: 600;
-            letter-spacing: -0.003em;
-            margin-bottom: 24px;
-            color: #1d1d1f;
+            margin-bottom: 15px;
+            color: #4facfe;
         }
 
-        .level-content {
-            font-size: 17px;
-            line-height: 1.7;
-            color: #1d1d1f;
+        .monster-hp-container {
+            max-width: 400px;
+            margin: 0 auto;
         }
 
-        .level-content p {
-            margin-bottom: 16px;
-        }
-
-        .level-content ul {
-            margin: 20px 0 20px 24px;
-        }
-
-        .level-content li {
-            margin-bottom: 12px;
-            color: #1d1d1f;
-        }
-
-        .code-block {
-            background: #1d1d1f;
-            color: #f5f5f7;
-            padding: 24px;
-            border-radius: 12px;
-            font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+        .monster-hp-text {
             font-size: 14px;
-            line-height: 1.8;
-            margin: 24px 0;
-            overflow-x: auto;
+            color: #a0a0a0;
+            margin-bottom: 8px;
         }
 
-        .command {
-            color: #0071e3;
+        .monster-hp-bar {
+            background: rgba(255, 255, 255, 0.1);
+            height: 24px;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .monster-hp-fill {
+            background: linear-gradient(90deg, #4ecdc4, #44a08d);
+            height: 100%;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .question-area {
+            margin-top: 40px;
+        }
+
+        .question-text {
+            font-size: 20px;
             font-weight: 500;
+            margin-bottom: 25px;
+            text-align: center;
+            line-height: 1.8;
+            color: #fff;
         }
 
-        .info-box {
-            background: #f5f5f7;
-            border-radius: 12px;
-            padding: 24px;
-            margin: 24px 0;
-            border-left: 3px solid #0071e3;
-        }
-
-        .info-box strong {
-            display: block;
-            margin-bottom: 12px;
-            color: #1d1d1f;
-            font-size: 15px;
-        }
-
-        .success-box {
-            background: #f5f5f7;
-            border-radius: 12px;
-            padding: 24px;
-            margin: 24px 0;
-            border-left: 3px solid #34c759;
-        }
-
-        .quiz-options {
+        .options {
             display: grid;
             gap: 12px;
-            margin: 32px 0;
         }
 
-        .quiz-option {
-            background: #f5f5f7;
-            border: 2px solid transparent;
-            padding: 20px 24px;
+        .option {
+            background: rgba(255, 255, 255, 0.08);
+            border: 2px solid rgba(79, 172, 254, 0.3);
+            padding: 18px 24px;
             border-radius: 12px;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            font-size: 17px;
+            transition: all 0.3s;
+            font-size: 16px;
             text-align: left;
         }
 
-        .quiz-option:hover {
-            background: #e8e8ed;
-            border-color: #0071e3;
+        .option:hover {
+            background: rgba(79, 172, 254, 0.2);
+            border-color: #4facfe;
+            transform: translateX(8px);
         }
 
-        .quiz-option.correct {
-            background: #34c759;
-            color: white;
-            border-color: #34c759;
+        .option.correct {
+            background: linear-gradient(135deg, #4ecdc4, #44a08d);
+            border-color: #4ecdc4;
+            animation: correctPulse 0.6s;
         }
 
-        .quiz-option.wrong {
-            background: #ff3b30;
-            color: white;
-            border-color: #ff3b30;
+        .option.wrong {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+            border-color: #ff6b6b;
+            animation: wrongShake 0.6s;
         }
 
-        .quiz-option.disabled {
+        .option.disabled {
             pointer-events: none;
+            opacity: 0.5;
         }
 
-        .score-display {
-            text-align: center;
-            font-size: 19px;
-            color: #6e6e73;
-            margin-bottom: 20px;
+        @keyframes correctPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
 
-        .score-number {
-            color: #0071e3;
-            font-weight: 600;
-            font-size: 24px;
+        @keyframes wrongShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-12px); }
+            75% { transform: translateX(12px); }
         }
 
-        .completion-message {
-            text-align: center;
-            padding: 40px 0;
+        .damage-text {
+            position: fixed;
+            font-size: 56px;
+            font-weight: 700;
+            animation: damageFloat 1.2s ease-out forwards;
+            pointer-events: none;
+            z-index: 1000;
+            text-shadow: 0 0 20px currentColor;
         }
 
-        .completion-title {
-            font-size: 32px;
-            font-weight: 600;
-            margin-bottom: 16px;
-            color: #1d1d1f;
+        @keyframes damageFloat {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-120px) scale(1.8);
+            }
         }
 
-        .completion-text {
-            font-size: 19px;
-            color: #6e6e73;
-            margin-bottom: 12px;
-        }
-
-        code {
-            background: #f5f5f7;
-            padding: 4px 8px;
-            border-radius: 6px;
-            font-family: 'SF Mono', Monaco, 'Courier New', monospace;
-            font-size: 0.95em;
-        }
-
-        .btn-container {
-            display: flex;
-            justify-content: center;
-            gap: 16px;
-            margin-top: 32px;
+        .explanation {
+            background: rgba(79, 172, 254, 0.15);
+            border-left: 3px solid #4facfe;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            line-height: 1.8;
         }
 
         .btn {
-            background: #0071e3;
-            color: white;
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            color: #0a0e27;
             border: none;
-            padding: 14px 32px;
-            border-radius: 980px;
-            font-size: 17px;
-            font-weight: 400;
+            padding: 16px 40px;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            min-width: 140px;
+            transition: all 0.3s;
+            display: inline-block;
+            margin: 30px auto 0;
+            box-shadow: 0 10px 30px rgba(79, 172, 254, 0.4);
         }
 
         .btn:hover {
-            background: #0077ed;
-            transform: scale(1.02);
+            transform: scale(1.08) translateY(-2px);
+            box-shadow: 0 15px 40px rgba(79, 172, 254, 0.6);
         }
 
-        .btn:active {
-            transform: scale(0.98);
+        .victory-screen, .defeat-screen {
+            text-align: center;
+            padding: 60px 20px;
         }
 
-        .btn.secondary {
-            background: #6e6e73;
+        .victory-title {
+            font-size: 56px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #4ecdc4, #44a08d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        .btn.secondary:hover {
-            background: #86868b;
+        .defeat-title {
+            font-size: 56px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .final-stats {
+            font-size: 22px;
+            margin: 30px 0;
+            color: #a0a0a0;
+            line-height: 1.8;
+        }
+
+        .mission-box {
+            background: rgba(79, 172, 254, 0.1);
+            border: 2px solid #4facfe;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: left;
+            line-height: 1.8;
         }
 
         @media (max-width: 768px) {
-            h1 {
+            .game-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .intro-title {
                 font-size: 40px;
             }
 
-            .level-title {
-                font-size: 32px;
-            }
-
-            .content-card {
-                padding: 32px 24px;
+            .monster-avatar {
+                width: 140px;
+                height: 140px;
+                font-size: 70px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Claude Code</h1>
-            <p class="subtitle">通过互动式学习掌握 AI 编程助手</p>
-        </header>
+    <div class="container" id="app">
+        <div class="intro-screen">
+            <div class="intro-title">AI 黑客</div>
+            <div class="intro-subtitle">代码世界冒险</div>
 
-        <div class="progress-container">
-            <div class="progress-label" id="progressLabel">第 0 题，共 15 题</div>
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressFill"></div>
+            <div class="story-box">
+                <p>2026年，代码世界陷入混乱。</p>
+                <p>一群<span class="highlight">代码怪兽</span>入侵了开发者的世界，它们阻止程序员使用强大的 AI 工具。</p>
+                <p>你是一名<span class="highlight">AI 黑客</span>，掌握着 Claude Code 这个终极武器。</p>
+                <p>只有通过回答关于 Claude Code 的问题，你才能击败这些怪兽，解放代码世界。</p>
+                <p>每个怪兽都有<span class="highlight">200 HP</span>，你需要连续答对问题才能将它们击败。</p>
+                <p>但要小心，答错会让你受到反击，失去生命值。</p>
+                <p><strong>准备好了吗，黑客？</strong></p>
             </div>
-        </div>
 
-        <div class="score-display">
-            <span>答对：</span><span class="score-number" id="scoreDisplay">0</span> 题
-        </div>
-
-        <div id="gameContent"></div>
-
-        <div class="btn-container" id="btnContainer">
-            <button class="btn" id="actionBtn">开始学习</button>
+            <button class="btn" onclick="startAdventure()">开始冒险</button>
         </div>
     </div>
 
     <script>
-        let currentLevel = 0;
-        let score = 0;
-        const totalLevels = 15;
+        let playerHP = 100;
+        let monstersDefeated = 0;
+        let currentMonsterIndex = 0;
+        let currentMonsterHP = 200;
+        let currentQuestionIndex = 0;
 
-        const levels = [
+        const monsters = [
             {
-                title: "第 1 题：启动 Claude Code",
-                question: "如何在命令行中启动 Claude Code？",
-                options: [
-                    "在终端输入 claude",
-                    "在终端输入 cc",
-                    "在终端输入 claude-code",
-                    "双击桌面图标"
-                ],
-                correctAnswer: 0,
-                explanation: "在终端中输入 claude 即可启动 Claude Code。"
+                name: "启动守卫",
+                avatar: "🛡️",
+                hp: 200,
+                questions: [
+                    {
+                        question: "你想开始使用 Claude Code，第一步应该做什么？",
+                        options: [
+                            "在终端输入 claude",
+                            "下载安装包",
+                            "注册账号",
+                            "打开浏览器"
+                        ],
+                        correctAnswer: 0,
+                        explanation: "直接在终端输入 claude 即可启动，无需复杂的安装步骤。"
+                    },
+                    {
+                        question: "启动后，你想了解有哪些可用命令，应该输入什么？",
+                        options: [
+                            "/help",
+                            "help",
+                            "?",
+                            "commands"
+                        ],
+                        correctAnswer: 0,
+                        explanation: "/help 会显示所有特殊命令的详细说明。"
+                    }
+                ]
             },
             {
-                title: "第 2 题：查看帮助",
-                question: "如果你想查看 Claude Code 的所有可用命令，应该使用哪个命令？",
-                options: [
-                    "/help",
-                    "/commands",
-                    "/list",
-                    "help"
-                ],
-                correctAnswer: 0,
-                explanation: "/help 命令会显示所有可用的特殊命令和使用说明。"
+                name: "文件操作兽",
+                avatar: "📁",
+                hp: 200,
+                questions: [
+                    {
+                        question: "你想查看项目中的 config.json 文件内容，最自然的方式是？",
+                        options: [
+                            "直接说：读取 config.json",
+                            "输入：cat config.json",
+                            "输入：open config.json",
+                            "输入：view config.json"
+                        ],
+                        correctAnswer: 0,
+                        explanation: "Claude Code 理解自然语言，直接用中文描述即可。"
+                    },
+                    {
+                        question: "你想创建一个新的 Python 文件 main.py，应该怎么说？",
+                        options: [
+                            "创建一个新文件 main.py",
+                            "touch main.py",
+                            "new main.py",
+                            "make main.py"
+                        ],
+                        correctAnswer: 0,
+                        explanation: "用自然语言描述需求，Claude 会帮你创建文件。"
+                    }
+                ]
             },
             {
-                title: "第 3 题：清空对话",
-                question: "当你想开始一个全新的对话，清空之前的历史记录时，应该使用什么命令？",
-                options: [
-                    "/clear",
-                    "/reset",
-                    "/new",
-                    "/restart"
-                ],
-                correctAnswer: 0,
-                explanation: "/clear 命令可以清空当前的对话历史，开始新的对话。"
+                name: "代码编写魔",
+                avatar: "💻",
+                hp: 200,
+                questions: [
+                    {
+                        question: "你想创建一个显示当前时间的网页，最好的描述方式是？",
+                        options: [
+                            "创建一个网页，显示当前时间，要有好看的样式",
+                            "make html time",
+                            "create time page",
+                            "new website"
+                        ],
+                        correctAnswer: 0,
+                        explanation: "详细描述功能和需求，Claude 会创建完整的代码。"
+                    },
+                    {
+                        question: "代码写完后，你想让 Claude 解释某个函数的作用，应该怎么说？",
+                        options: [
+                            "解释一下这个函数是做什么的",
+                            "explain",
+                            "what",
+                            "function"
+                        ],
+                        correctAnswer: 0,
+                        explanation: "清楚地表达你的需求，Claude 会详细解释代码逻辑。"
+                    }
+                ]
             },
             {
-                title: "第 4 题：读取文件",
-                question: "你想让 Claude 帮你查看 app.js 文件的内容，最好的方式是？",
-                options: [
-                    "直接说：读取 app.js 文件",
-                    "输入命令：cat app.js",
-                    "输入命令：open app.js",
-                    "输入命令：read app.js"
-                ],
-                correctAnswer: 0,
-                explanation: "Claude Code 支持自然语言交互，直接用中文描述你的需求即可。"
+                name: "搜索猎手",
+                avatar: "🔍",
+                hp: 200,
+                questions: [
+                    {
+                        question: "你想在整个项目中找到所有使用 API 的地方，应该怎么说？",
+                        options: [
+                            "在项目中搜索所有 API 调用",
+                            "grep API",
+                            "find API",
+                            "search API"
+                        ],
+                        correctAnswer: 0,
+                        explanation: "用自然语言描述搜索需求，Claude 会在整个项目中查找。"
+                    },
+                    {
+                        question: "你想查看项目的文件结构，了解代码组织方式，应该怎么问？",
+                        options: [
+                            "显示项目结构",
+                            "ls -la",
+                            "tree",
+                            "show files"
+                        ],
+                        correctAnswer: 0,
+                        explanation: "直接询问项目结构，Claude 会清晰展示文件组织。"
+                    }
+                ]
             },
             {
-                title: "第 5 题：创建新文件",
-                question: "你想创建一个名为 utils.js 的新文件，应该怎么说？",
-                options: [
-                    "创建一个新文件 utils.js",
-                    "touch utils.js",
-                    "new file utils.js",
-                    "make utils.js"
-                ],
-                correctAnswer: 0,
-                explanation: "用自然语言描述你的需求，Claude 会帮你创建文件。"
-            },
-            {
-                title: "第 6 题：修改代码",
-                question: "你发现 index.html 的第 20 行有个拼写错误，想让 Claude 帮你修改，应该怎么说？",
-                options: [
-                    "修改 index.html 第 20 行的拼写错误",
-                    "edit index.html line 20",
-                    "fix index.html:20",
-                    "change line 20 in index.html"
-                ],
-                correctAnswer: 0,
-                explanation: "清楚地描述文件位置和要修改的内容，Claude 会帮你完成。"
-            },
-            {
-                title: "第 7 题：搜索代码",
-                question: "你想在整个项目中查找所有使用了 fetch 函数的地方，应该怎么说？",
-                options: [
-                    "在项目中搜索 fetch",
-                    "grep fetch",
-                    "find fetch",
-                    "search fetch"
-                ],
-                correctAnswer: 0,
-                explanation: "用自然语言描述搜索需求，Claude 会帮你在项目中查找。"
-            },
-            {
-                title: "第 8 题：查看项目结构",
-                question: "你刚接手一个新项目，想了解项目的文件结构，应该怎么问？",
-                options: [
-                    "显示项目结构",
-                    "ls -la",
-                    "tree",
-                    "show files"
-                ],
-                correctAnswer: 0,
-                explanation: "直接询问项目结构，Claude 会帮你展示文件组织方式。"
-            },
-            {
-                title: "第 9 题：创建网页",
-                question: "你想创建一个简单的个人介绍网页，包含标题、段落和图片，应该怎么描述？",
-                options: [
-                    "创建一个个人介绍网页，包含标题、段落和图片",
-                    "make html page",
-                    "new website",
-                    "create index.html"
-                ],
-                correctAnswer: 0,
-                explanation: "详细描述你想要的功能，Claude 会创建完整的 HTML 文件。"
-            },
-            {
-                title: "第 10 题：调试代码",
-                question: "你的 JavaScript 代码报错了，想让 Claude 帮你找出问题，应该怎么说？",
-                options: [
-                    "帮我看看这段代码哪里有问题",
-                    "debug",
-                    "fix error",
-                    "check code"
-                ],
-                correctAnswer: 0,
-                explanation: "描述你遇到的问题，Claude 会分析代码并找出错误。"
-            },
-            {
-                title: "第 11 题：查看历史命令",
-                question: "在命令行中，如何快速查看并重新执行之前输入过的命令？",
-                options: [
-                    "按向上箭头键",
-                    "输入 history",
-                    "按 Ctrl+H",
-                    "输入 /history"
-                ],
-                correctAnswer: 0,
-                explanation: "按向上箭头键可以浏览之前输入的命令历史。"
-            },
-            {
-                title: "第 12 题：Git 提交",
-                question: "你完成了代码修改，想创建一个 git 提交，应该使用什么命令？",
-                options: [
-                    "/commit",
-                    "git commit",
-                    "/git",
-                    "/save"
-                ],
-                correctAnswer: 0,
-                explanation: "/commit 命令会帮你创建 git 提交，Claude 会自动生成提交信息。"
-            },
-            {
-                title: "第 13 题：添加功能",
-                question: "你想给网页添加一个点击按钮显示当前时间的功能，最好的描述方式是？",
-                options: [
-                    "添加一个按钮，点击后显示当前时间",
-                    "add button",
-                    "make time button",
-                    "create click function"
-                ],
-                correctAnswer: 0,
-                explanation: "清楚描述功能需求，Claude 会实现完整的交互逻辑。"
-            },
-            {
-                title: "第 14 题：代码解释",
-                question: "你看到一段复杂的代码不太理解，想让 Claude 解释，应该怎么说？",
-                options: [
-                    "解释一下这段代码的作用",
-                    "explain code",
-                    "what is this",
-                    "help"
-                ],
-                correctAnswer: 0,
-                explanation: "直接请求解释，Claude 会详细说明代码的功能和逻辑。"
-            },
-            {
-                title: "第 15 题：最佳实践",
-                question: "使用 Claude Code 时，哪种方式最有效？",
-                options: [
-                    "用清晰的自然语言描述需求，提供足够的上下文",
-                    "只用简短的命令词",
-                    "用英文命令",
-                    "用专业术语"
-                ],
-                correctAnswer: 0,
-                explanation: "清晰、详细的自然语言描述能让 Claude 更好地理解你的需求。"
+                name: "终极 BOSS",
+                avatar: "👑",
+                hp: 200,
+                questions: [
+                    {
+                        question: "你完成了代码修改，想创建 git 提交，应该使用什么命令？",
+                        options: [
+                            "/commit",
+                            "git commit",
+                            "/save",
+                            "commit"
+                        ],
+                        correctAnswer: 0,
+                        explanation: "/commit 命令会帮你创建提交，Claude 还会自动生成提交信息。"
+                    },
+                    {
+                        question: "使用 Claude Code 的最佳方式是什么？",
+                        options: [
+                            "用清晰的自然语言描述需求，提供足够的上下文",
+                            "只用简短的命令词",
+                            "用英文命令",
+                            "用专业术语"
+                        ],
+                        correctAnswer: 0,
+                        explanation: "清晰、详细的自然语言描述能让 Claude 更好地理解你的需求。"
+                    }
+                ]
             }
         ];
 
-        function updateProgress() {
-            const progress = (currentLevel / totalLevels) * 100;
-            document.getElementById('progressFill').style.width = progress + '%';
-            document.getElementById('progressLabel').textContent = `第 ${currentLevel} 题，共 ${totalLevels} 题`;
+        function startAdventure() {
+            document.getElementById('app').innerHTML = `
+                <header>
+                    <h1>AI 黑客：代码世界冒险</h1>
+                    <p class="subtitle">击败代码怪兽，解放开发者</p>
+                </header>
+
+                <div class="game-stats">
+                    <div class="stat-card">
+                        <div class="stat-label">你的生命值</div>
+                        <div class="stat-value" id="playerHP">100</div>
+                        <div class="hp-bar">
+                            <div class="hp-fill" id="playerHPBar" style="width: 100%"></div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">击败怪兽</div>
+                        <div class="stat-value" id="monstersDefeated">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">当前关卡</div>
+                        <div class="stat-value" id="currentLevel">1</div>
+                    </div>
+                </div>
+
+                <div class="battle-area" id="battleArea"></div>
+            `;
+
+            currentMonsterIndex = 0;
+            playerHP = 100;
+            monstersDefeated = 0;
+            showMonster();
         }
 
-        function updateScore() {
-            document.getElementById('scoreDisplay').textContent = score;
-        }
-
-        function renderLevel() {
-            const gameContent = document.getElementById('gameContent');
-            const level = levels[currentLevel];
-            const btnContainer = document.getElementById('btnContainer');
-
-            if (currentLevel >= totalLevels) {
-                showCompletion();
+        function showMonster() {
+            if (currentMonsterIndex >= monsters.length) {
+                showVictory();
                 return;
             }
 
-            let html = `
-                <div class="content-card">
-                    <div class="level-title">${level.title}</div>
-                    <div class="level-content">
-                        <p><strong>${level.question}</strong></p>
-                        <div class="quiz-options" id="quizOptions">
-            `;
+            const monster = monsters[currentMonsterIndex];
+            currentMonsterHP = monster.hp;
+            currentQuestionIndex = 0;
+            document.getElementById('currentLevel').textContent = currentMonsterIndex + 1;
 
-            level.options.forEach((option, index) => {
-                html += `<div class="quiz-option" onclick="checkAnswer(${index})">${option}</div>`;
-            });
+            showQuestion();
+        }
 
-            html += `
+        function showQuestion() {
+            const monster = monsters[currentMonsterIndex];
+            const question = monster.questions[currentQuestionIndex];
+
+            const battleArea = document.getElementById('battleArea');
+            battleArea.innerHTML = `
+                <div class="monster">
+                    <div class="monster-avatar" id="monsterAvatar">${monster.avatar}</div>
+                    <div class="monster-name">${monster.name}</div>
+                    <div class="monster-hp-container">
+                        <div class="monster-hp-text">怪兽生命值：<span id="monsterHPText">${currentMonsterHP}</span> / ${monster.hp}</div>
+                        <div class="monster-hp-bar">
+                            <div class="monster-hp-fill" id="monsterHPBar" style="width: ${(currentMonsterHP/monster.hp)*100}%">
+                                ${currentMonsterHP} HP
+                            </div>
                         </div>
                     </div>
                 </div>
+                <div class="question-area">
+                    <div class="question-text">${question.question}</div>
+                    <div class="options" id="options"></div>
+                </div>
             `;
 
-            gameContent.innerHTML = html;
-            btnContainer.style.display = 'none';
-            updateProgress();
+            const optionsContainer = document.getElementById('options');
+            question.options.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'option';
+                optionDiv.textContent = option;
+                optionDiv.onclick = () => checkAnswer(index);
+                optionsContainer.appendChild(optionDiv);
+            });
         }
 
         function checkAnswer(selectedIndex) {
-            const level = levels[currentLevel];
-            const options = document.querySelectorAll('.quiz-option');
-            const btnContainer = document.getElementById('btnContainer');
-            const actionBtn = document.getElementById('actionBtn');
+            const monster = monsters[currentMonsterIndex];
+            const question = monster.questions[currentQuestionIndex];
+            const options = document.querySelectorAll('.option');
 
             options.forEach((option, index) => {
                 option.classList.add('disabled');
-                if (index === level.correctAnswer) {
+                if (index === question.correctAnswer) {
                     option.classList.add('correct');
                 } else if (index === selectedIndex) {
                     option.classList.add('wrong');
                 }
             });
 
-            if (selectedIndex === level.correctAnswer) {
-                score++;
-                updateScore();
-            }
-
-            // 显示解释
-            const explanation = document.createElement('div');
-            explanation.className = 'info-box';
-            explanation.style.marginTop = '24px';
-            explanation.innerHTML = `<strong>解释</strong>${level.explanation}`;
-            document.querySelector('.content-card').appendChild(explanation);
-
-            // 显示下一题按钮
-            btnContainer.style.display = 'flex';
-            actionBtn.textContent = currentLevel < totalLevels - 1 ? '下一题' : '查看结果';
-            actionBtn.onclick = nextLevel;
-        }
-
-        function nextLevel() {
-            currentLevel++;
-            renderLevel();
-        }
-
-        function showCompletion() {
-            const gameContent = document.getElementById('gameContent');
-            const percentage = Math.round((score / totalLevels) * 100);
-            const btnContainer = document.getElementById('btnContainer');
-            const actionBtn = document.getElementById('actionBtn');
-
-            let message = '';
-            let messageColor = '';
-            if (percentage === 100) {
-                message = '完美！你已经完全掌握了 Claude Code';
-                messageColor = '#34c759';
-            } else if (percentage >= 80) {
-                message = '优秀！你对 Claude Code 有很好的理解';
-                messageColor = '#0071e3';
-            } else if (percentage >= 60) {
-                message = '不错！继续学习会更好';
-                messageColor = '#ff9500';
+            if (selectedIndex === question.correctAnswer) {
+                attackMonster();
             } else {
-                message = '建议再学习一遍，加深理解';
-                messageColor = '#ff3b30';
+                takeDamage();
             }
 
-            const html = `
-                <div class="content-card">
-                    <div class="completion-message">
-                        <div class="completion-title">学习完成</div>
-                        <p class="completion-text">你答对了 <span class="score-number">${score}</span> / ${totalLevels} 题</p>
-                        <p class="completion-text">正确率：<span class="score-number">${percentage}%</span></p>
-                        <p style="font-size: 21px; color: ${messageColor}; margin-top: 24px; font-weight: 500;">${message}</p>
+            setTimeout(() => {
+                const explanation = document.createElement('div');
+                explanation.className = 'explanation';
+                explanation.innerHTML = `<strong>解释：</strong>${question.explanation}`;
+                document.querySelector('.question-area').appendChild(explanation);
+
+                const nextBtn = document.createElement('button');
+                nextBtn.className = 'btn';
+
+                if (currentMonsterHP <= 0) {
+                    nextBtn.textContent = currentMonsterIndex < monsters.length - 1 ? '下一个怪兽' : '查看结果';
+                    nextBtn.onclick = nextMonster;
+                } else {
+                    nextBtn.textContent = '继续攻击';
+                    nextBtn.onclick = nextQuestion;
+                }
+
+                document.querySelector('.question-area').appendChild(nextBtn);
+            }, 1000);
+        }
+
+        function attackMonster() {
+            const damage = 100;
+            currentMonsterHP -= damage;
+            if (currentMonsterHP < 0) currentMonsterHP = 0;
+
+            showDamageText(damage, '#4ecdc4', true);
+
+            const monsterAvatar = document.getElementById('monsterAvatar');
+            monsterAvatar.classList.add('damaged');
+            setTimeout(() => monsterAvatar.classList.remove('damaged'), 500);
+
+            updateMonsterHP();
+
+            if (currentMonsterHP === 0) {
+                monstersDefeated++;
+                document.getElementById('monstersDefeated').textContent = monstersDefeated;
+            }
+        }
+
+        function takeDamage() {
+            const damage = 15;
+            playerHP -= damage;
+            if (playerHP < 0) playerHP = 0;
+
+            showDamageText(damage, '#ff6b6b', false);
+            updatePlayerHP();
+
+            if (playerHP === 0) {
+                setTimeout(() => showDefeat(), 1500);
+            }
+        }
+
+        function updateMonsterHP() {
+            const monster = monsters[currentMonsterIndex];
+            const percentage = (currentMonsterHP / monster.hp) * 100;
+            document.getElementById('monsterHPBar').style.width = percentage + '%';
+            document.getElementById('monsterHPBar').textContent = currentMonsterHP + ' HP';
+            document.getElementById('monsterHPText').textContent = currentMonsterHP;
+        }
+
+        function updatePlayerHP() {
+            document.getElementById('playerHP').textContent = playerHP;
+            document.getElementById('playerHPBar').style.width = playerHP + '%';
+        }
+
+        function showDamageText(damage, color, isPlayerAttack) {
+            const damageText = document.createElement('div');
+            damageText.className = 'damage-text';
+            damageText.textContent = `-${damage}`;
+            damageText.style.color = color;
+            damageText.style.left = isPlayerAttack ? '60%' : '40%';
+            damageText.style.top = '25%';
+            document.body.appendChild(damageText);
+
+            setTimeout(() => damageText.remove(), 1200);
+        }
+
+        function nextQuestion() {
+            if (playerHP === 0) {
+                showDefeat();
+                return;
+            }
+
+            currentQuestionIndex++;
+            if (currentQuestionIndex >= monsters[currentMonsterIndex].questions.length) {
+                currentQuestionIndex = 0;
+            }
+            showQuestion();
+        }
+
+        function nextMonster() {
+            if (playerHP === 0) {
+                showDefeat();
+                return;
+            }
+
+            currentMonsterIndex++;
+            showMonster();
+        }
+
+        function showVictory() {
+            const battleArea = document.getElementById('battleArea');
+            battleArea.innerHTML = `
+                <div class="victory-screen">
+                    <div class="victory-title">胜利！</div>
+                    <div class="final-stats">
+                        你击败了所有 ${monstersDefeated} 个代码怪兽<br>
+                        剩余生命值：${playerHP}<br>
+                        代码世界已经解放！
                     </div>
-                    <div class="success-box">
-                        <strong>下一步</strong>
-                        现在打开终端，输入 <code>claude</code> 开始使用 Claude Code<br>
-                        尝试创建你的第一个项目，比如：<br>
-                        • 个人网站<br>
-                        • 待办事项应用<br>
-                        • 简单游戏<br>
-                        • 计算器工具
+                    <div class="mission-box">
+                        <strong style="font-size: 20px; color: #4facfe;">最终任务：创建你的第一个项目</strong><br><br>
+                        现在你已经掌握了 Claude Code 的核心技能，是时候完成最终任务了！<br><br>
+                        <strong>任务选择（选一个完成）：</strong><br>
+                        1. 创建一个个人网站，展示你的技能和作品<br>
+                        2. 创建一个待办事项应用，帮助管理日常任务<br>
+                        3. 创建一个简单的小游戏（比如猜数字、井字棋）<br>
+                        4. 创建一个实用工具（比如计算器、单位转换器）<br><br>
+                        <strong>如何开始：</strong><br>
+                        1. 打开终端，输入 <code style="background: rgba(255,255,255,0.2); padding: 4px 8px; border-radius: 4px;">claude</code><br>
+                        2. 用自然语言描述你想创建的项目<br>
+                        3. Claude 会帮你一步步完成<br>
+                        4. 在浏览器中查看效果并持续改进
                     </div>
+                    <button class="btn" onclick="location.reload()">再玩一次</button>
                 </div>
             `;
+        }
 
-            gameContent.innerHTML = html;
-            btnContainer.style.display = 'flex';
-            btnContainer.innerHTML = `
-                <button class="btn secondary" onclick="restart()">重新开始</button>
+        function showDefeat() {
+            const battleArea = document.getElementById('battleArea');
+            battleArea.innerHTML = `
+                <div class="defeat-screen">
+                    <div class="defeat-title">失败了...</div>
+                    <div class="final-stats">
+                        你击败了 ${monstersDefeated} 个代码怪兽<br>
+                        但在第 ${currentMonsterIndex + 1} 关倒下了<br>
+                        不要气馁，每次失败都是学习的机会！
+                    </div>
+                    <div class="mission-box">
+                        <strong style="font-size: 20px; color: #ff6b6b;">学习建议：</strong><br><br>
+                        重新挑战前，记住这些要点：<br>
+                        • 用自然语言描述需求<br>
+                        • 提供足够的上下文信息<br>
+                        • 不要害怕尝试和提问<br>
+                        • Claude Code 是你的编程伙伴
+                    </div>
+                    <button class="btn" onclick="location.reload()">重新挑战</button>
+                </div>
             `;
         }
-
-        function restart() {
-            currentLevel = 0;
-            score = 0;
-            updateScore();
-            renderLevel();
-        }
-
-        function startGame() {
-            renderLevel();
-        }
-
-        // 初始化
-        document.getElementById('actionBtn').onclick = startGame;
     </script>
 </body>
 </html>
