@@ -83,6 +83,13 @@ Your memory has three layers, each with different responsibilities and access pa
 
 ## Ongoing Context
 
+### 抖音数据抓取项目 (2026-03-31)
+
+- 目标：每日定时抓取"湖南 大众"抖音视频，筛选购买意向评论
+- 状态：技术方案待定，Playwright/MediaCrawler 均因反爬虫失败
+- 待用户决策：Tushare API（5元体验金）vs 继续调试爬虫 vs 手动整理
+- 产出：日报 HTML 模板已完成（Apple 风格）
+
 ### MyAgents 企业微信接入 (2026-03-31)
 
 - 插件已安装，账号已扫码绑定
