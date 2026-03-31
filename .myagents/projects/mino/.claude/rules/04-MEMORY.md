@@ -123,6 +123,13 @@ Your memory has three layers, each with different responsibilities and access pa
 - Agent "天才" 已启用微信 Channel
 - 下一步：用户需要在 ilinkai.weixin.qq.com 或企业微信 App 里找到机器人添加使用
 
+### AI 培训页面项目 (2026-04-01)
+
+- 复刻"AI重构一切"培训活动页面
+- 产出：`ai-growth-system.html`
+- 结构：Hero + 讲师卡片 + 增长方向 + 模块卡片 + 案例 + 页脚
+- 配色：橙(#FF6600) + 深灰(#1E1E1E) + 浅灰背景(#F5F5F5)
+
 ---
 
 *Update this file as you learn. It's how you persist.*
