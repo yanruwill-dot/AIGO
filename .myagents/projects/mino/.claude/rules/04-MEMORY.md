@@ -81,7 +81,27 @@ Your memory has three layers, each with different responsibilities and access pa
 - 需要在 MyAgents 设置里扫码登录绑定账号
 - 不是普通联系人，是"智能链接"服务的应用机器人
 
+### Happy Coder (2026-04-01)
+
+- Will 用 `happy` CLI 管理 Claude Code 认证
+- `happy auth status` 检查认证状态
+- `happy` 是 Claude Code 的移动控制层
+
+### Claude Code 架构（源码泄露学习）(2026-04-01)
+
+- **Prompt Cache**：静态段/动态段分离，最大化缓存命中率
+- **Coordinator + Fork**：解决上下文污染，子 Agent 只返回结论
+- **Swarm 并发**：多 Agent 并行，权限桥接到 Leader 统一管理
+- **Dream 记忆**：夜间后台任务，从短期日志蒸馏长期记忆
+- **YOLO Classifier**：小 AI 监管大 AI 的动态权限系统
+
 ## Ongoing Context
+
+### Buddy System 宠物系统 (2026-04-01)
+
+- 终端宠物 + 桌面宠物已创建
+- 详见 `memory/topics/buddy-system.md`
+- Will 的宠物：Mino the Capibara 🦫（common, propeller）
 
 ### 抖音数据抓取项目 (2026-03-31)
 
