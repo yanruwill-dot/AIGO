@@ -87,6 +87,13 @@ Your memory has three layers, each with different responsibilities and access pa
 - `happy auth status` 检查认证状态
 - `happy` 是 Claude Code 的移动控制层
 
+### 抖音/小红书爬虫工具 (2026-04-01)
+
+- **agent-browser**：Playwright 自动化，抖音/小红书会检测并返回空白页
+- **yt-dlp**：支持 Douyin/XiaoHongShu，需手动登录后用扩展导出 cookies.txt
+- **gallery-dl**：brew 安装，支持 Bilibili/微博/TikTok，不支持抖音/小红书
+- 方案：浏览器登录 → Get cookies.txt LOCALLY 扩展导出 → yt-dlp --cookies 下载
+
 ### Claude Code 架构（源码泄露学习）(2026-04-01)
 
 - **Prompt Cache**：静态段/动态段分离，最大化缓存命中率
@@ -106,8 +113,8 @@ Your memory has three layers, each with different responsibilities and access pa
 ### 抖音数据抓取项目 (2026-03-31)
 
 - 目标：每日定时抓取"湖南 大众"抖音视频，筛选购买意向评论
-- 状态：技术方案待定，Playwright/MediaCrawler 均因反爬虫失败
-- 待用户决策：Tushare API（5元体验金）vs 继续调试爬虫 vs 手动整理
+- 状态：需手动登录导出 cookies 后用 yt-dlp 下载
+- 方案：浏览器扩展 "Get cookies.txt LOCALLY" → yt-dlp --cookies
 - 产出：日报 HTML 模板已完成（Apple 风格）
 
 ### MyAgents 企业微信接入 (2026-03-31)
