@@ -123,12 +123,26 @@ Your memory has three layers, each with different responsibilities and access pa
 - Agent "天才" 已启用微信 Channel
 - 下一步：用户需要在 ilinkai.weixin.qq.com 或企业微信 App 里找到机器人添加使用
 
-### AI 培训页面项目 (2026-04-01)
+### AI 培训页面项目 (2026-04-01, 更新 2026-04-07)
 
-- 复刻"AI重构一切"培训活动页面
 - 产出：`ai-growth-system.html`
-- 结构：Hero + 讲师卡片 + 增长方向 + 模块卡片 + 案例 + 页脚
-- 配色：橙(#FF6600) + 深灰(#1E1E1E) + 浅灰背景(#F5F5F5)
+- 已升级：深色主题 + SVG 图标系统 + 全文字可编辑 + 图片上传
+- 标题：打造AI超级员工——10倍增长引擎
+
+### BuildSync Pro F 架构文档 (2026-04-07)
+
+- 来源：`myagents_files/buildsync-archdoc-20260406-run-01.zip`
+- 跨境建设工程多方协同 SaaS 平台，19 篇架构文档
+- 核心数据：18 微服务、55 端点、26 事件、36+ 实体、23 角色、30 ABAC 规则、68 前端页面
+- 关键模式：Outbox、Event Sourcing + CQRS、ABAC/OPA、双层守卫、签名配置包、状态机引擎
+- 计划拆分为 8 个 Skills 嵌入 MyAgents
+- 参见 `memory/topics/buildsync-pro.md`
+
+### Skills 全景 (2026-04-07)
+
+- 总计 133 个 unique skills + 14 个 agents
+- 分布：`~/.claude/skills/`（主）、`~/.myagents/skills/`（全局）、`~/.myagents/projects/mino/.claude/skills/`（项目级）
+- 计划制作宣传海报 HTML 展示全部能力
 
 ---
 
