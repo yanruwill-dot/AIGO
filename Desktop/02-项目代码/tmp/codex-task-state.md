@@ -31,6 +31,7 @@
 ## Git
 - 当前 git 根目录为 /Users/will，存在大量本轮无关未归属变更；本轮不会回滚或覆盖。
 - commit/push 时必须继续路径限定，只提交本轮文件。
+- 本轮成果 commit：7e90a64 Add complete groundwater survey workbook。
 
 ## 验证补充
 - 工作簿 sheet：管理看板、全国主线、项目主表、省份量化对比、采购工作量拆解、方法论字段、来源索引。
