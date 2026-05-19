@@ -37,3 +37,9 @@
 - 图表：省份量化对比 2 个图表。
 - 关键数据校验：全国专项整治 399 个；云南 1062.62 km²/163 眼；福建莆田预算 165 万元；S05 来源链接有效写入。
 - 生成文件：全国产业园区地下水污染状况调查项目_更详细版_全国数据资料.xlsx / .md。
+
+## GitHub 进度补充
+- commit: 78b86e15afeed80c4c9daf76109e90aa7b17e82f
+- push: 成功推送到 origin/codex/continuous-review-fixes
+- PR: https://github.com/yanruwill-dot/AIGO/pull/1
+- 注意：gh pr create 提示仍有大量未提交变更，均为本轮无关；后续必须继续使用路径限定。
